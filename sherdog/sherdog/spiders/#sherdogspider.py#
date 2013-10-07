@@ -6,7 +6,7 @@ import datetime as dt
 import re
 
 class SherdogSpider(CrawlSpider):
-    name = "rua"
+    name = "sherdog"
     allowed_domains = ["sherdog.com/fighter"]
     start_urls = ["http://www.sherdog.com/fighter/"]
 

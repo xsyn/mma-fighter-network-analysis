@@ -1,14 +1,13 @@
-from scrapy.spider import CrawlSpider
+from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
 from sherdog.items import FightItem, AttrItem, FighterItem
-from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 import datetime as dt
 import re
 
-class SherdogSpider(CrawlSpider):
-    name = "rua"
+class ShogunSpider(BaseSpider):
+    name = "shogun"
     allowed_domains = ["sherdog.com/fighter"]
-    start_urls = ["http://www.sherdog.com/fighter/"]
+    start_urls = ["http://www.sherdog.com/fighter/Mauricio-Rua-5707"]
 
     def parse(self, response):
         # -- collect all table tags that has all the data
