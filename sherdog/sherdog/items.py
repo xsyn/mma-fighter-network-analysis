@@ -37,6 +37,6 @@ class FighterItem(Item):
     This is a superclass of FightItem and AttrItem so it binds both of them via
     dictionaries.
     '''
-    Fight = Field()
-    Attr = Field()
+    Fights = Field()
+    Bio = Field()
     pass
