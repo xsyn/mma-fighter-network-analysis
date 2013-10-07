@@ -10,11 +10,11 @@ class SherdogSpider(CrawlSpider):
     start_urls = ["http://www.sherdog.com/fighter/"]
 
     rules = (
-        Rule(SgmlLinkExtractor(allow = (".*[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+")),
-             callback = "parse_items", follow = True)
+        Rule(SgmlLinkExtractor(allow = (".*[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+", )),
+             callback = "parse_item", follow = True), 
              )
 
-    def parse_items(self, response):
+    def parse_item(self, response):
         # -- collect all table tags that has all the data
         hxs = HtmlXPathSelector(response)
         tabs_odd = hxs.select("//tr[@class='odd']")
@@ -51,4 +51,5 @@ class SherdogSpider(CrawlSpider):
         Fighter = FighterItem()
         Fighter["Fights"] = dict(Fights)
         Fighter["Bio"] = dict(AI)
+        
         return Fighter
