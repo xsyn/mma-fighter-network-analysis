@@ -22,5 +22,7 @@ and run:
 
 (CrawlSpider not ready!)
 
+    scrapy crawl sherdog -o ../../data/results.json -t json
+	
 ## Network Analysis
 

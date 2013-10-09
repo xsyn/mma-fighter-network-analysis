@@ -7,7 +7,7 @@ import re
 class SherdogSpider(CrawlSpider):
     name = "sherdog"
     allowed_domains = ["sherdog.com/fighter"]
-    start_urls = ["http://www.sherdog.com/fighter/"]
+    start_urls = ["http://www.sherdog.com/fighter/Mauricio-Rua-5707"]
 
     rules = (
         Rule(SgmlLinkExtractor(allow = (".*[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+", )),
