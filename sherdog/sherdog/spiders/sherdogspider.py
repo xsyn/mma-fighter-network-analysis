@@ -12,7 +12,7 @@ class SherdogSpider(CrawlSpider):
 
     rules = (
     Rule(SgmlLinkExtractor(allow = (r'/fighter/[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+', )),
-         callback = "parse_item", follow = True, unique = True),
+         callback = "parse_item", follow = True), 
          )
 
     def parse_item(self, response):
