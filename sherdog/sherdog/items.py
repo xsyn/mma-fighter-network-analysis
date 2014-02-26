@@ -25,6 +25,7 @@ class AttrItem(Item):
     Fighters attribute, one for each fighter.
     Dictionaries alongside dictionaries of fights.
     '''
+    Name = Field()
     Birthday = Field()
     Weight = Field()
     Height = Field()
