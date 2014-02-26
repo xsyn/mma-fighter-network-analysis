@@ -1,3 +1,4 @@
+from scrapy.selector import HtmlXPathSelector
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from sherdog.items import FightItem, AttrItem, FighterItem
@@ -6,13 +7,13 @@ import re
 
 class SherdogSpider(CrawlSpider):
     name = "sherdog"
-    allowed_domains = ["sherdog.com/fighter"]
+    allowed_domains = ["sherdog.com"]
     start_urls = ["http://www.sherdog.com/fighter/Mauricio-Rua-5707"]
 
     rules = (
-        Rule(SgmlLinkExtractor(allow = (".*[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+", )),
-             callback = "parse_item", follow = True), 
-             )
+    Rule(SgmlLinkExtractor(allow = (r'/fighter/[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+', )),
+         callback = "parse_item", follow = True, unique = True),
+         )
 
     def parse_item(self, response):
         # -- collect all table tags that has all the data
@@ -51,5 +52,5 @@ class SherdogSpider(CrawlSpider):
         Fighter = FighterItem()
         Fighter["Fights"] = dict(Fights)
         Fighter["Bio"] = dict(AI)
-        
+
         return Fighter

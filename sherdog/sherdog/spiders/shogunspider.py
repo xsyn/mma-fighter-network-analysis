@@ -18,6 +18,7 @@ class ShogunSpider(BaseSpider):
         tabs[0::2] = tabs_odd
         tabs[1::2] = tabs_even
 
+
         # -- collect all fights
         Fights = {}
         i = 1
