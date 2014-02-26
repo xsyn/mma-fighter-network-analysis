@@ -1,6 +1,10 @@
 # MMA Fighter Social Network Analysis
 
-## Before
+#### A quick hack to solve DOCTYPE issue
+
+Some webpages have weird DOCTYPES or past DOCTYPES that are commented
+out (e.g. <!DOCTYPE html><!–[if IE]><![endif]–>). These cause problems
+with CrawlSpider() in Scrapy so you need to fix a line in sigmllib.py.
 
 From
 
@@ -42,7 +46,8 @@ To debug, run:
 
 ### CrawlSpider w/ Scrapy to scrape the whole fighter database
 
-(CrawlSpider not ready!)
+The SherdogSpider() will recursively go through all of the fighters
+starting with Shogun. Double Ctrl+C to stop. 
 
     scrapy crawl sherdog -o ../data/results.json -t json
 
