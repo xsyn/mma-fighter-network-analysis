@@ -4,14 +4,22 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from sherdog.items import FightItem, AttrItem, FighterItem
 import datetime as dt
+import re
 
 class SherdogSpider(CrawlSpider):
     name = "sherdog"
     allowed_domains = ["sherdog.com"]
     start_urls = ["http://www.sherdog.com/fighter/Mauricio-Rua-5707"]
 
+    def my_process_value(value):
+        m = re.search("http://m\.sherdog*", value)
+        if m:
+            return value.replace("http://m","http://www")
+        else:
+            return value
+
     rules = (
-    Rule(SgmlLinkExtractor(allow = (r'/fighter/[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+', )),
+    Rule(SgmlLinkExtractor(allow = (r'/fighter/[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+', ),process_value = my_process_value ),
          callback = "parse_item", follow = True),
          )
 
@@ -38,7 +46,7 @@ class SherdogSpider(CrawlSpider):
             if (tab.select(".//td/text()")[2].extract()) != "N/A":
                 FI["Time"] = sum(int(x) * 60 **k for k, x in enumerate(reversed(tab.select(".//td/text()")[2].extract().split(":"))))
             else:
-                FI["Time"] = 0
+                FI["Time"]
             Fights["Fight" + str(i)] = dict(FI)
             i += 1
 
