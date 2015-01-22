@@ -43,8 +43,11 @@ class SherdogSpider(CrawlSpider):
             FI["Date"] = dt.datetime.strptime(tab.select(".//span[@class='sub_line']/text()")[0].extract(), "%b / %d / %Y")
             FI["Method"] = tab.select(".//td/text()")[0].extract()
             FI["Round"] = int(tab.select(".//td/text()")[1].extract())
-            if (tab.select(".//td/text()")[2].extract()) != "N/A":
-                FI["Time"] = sum(int(x) * 60 **k for k, x in enumerate(reversed(tab.select(".//td/text()")[2].extract().split(":"))))
+            if tab.select(".//td/text()")[2].extract() != "N/A":
+                if re.search(";", tab.select(".//td/text()")[2].extract()):
+                    FI["Time"] = sum(int(x) * 60 **k for k, x in enumerate(reversed(tab.select(".//td/text()")[2].extract().split(";"))))
+                else:
+                    FI["Time"] = sum(int(x) * 60 **k for k, x in enumerate(reversed(tab.select(".//td/text()")[2].extract().split(":"))))
             else:
                 FI["Time"] = 0
             Fights["Fight" + str(i)] = dict(FI)
