@@ -28,8 +28,10 @@ class SherdogSpider(CrawlSpider):
         tabs_odd = hxs.select("//tr[@class='odd']")
         tabs_even = hxs.select("//tr[@class='even']")
         tabs = [0] * (len(tabs_odd) + len(tabs_even))
-        tabs[0::2] = tabs_odd
-        tabs[1::2] = tabs_even
+        #tabs += tabs_even
+        #tabs += tabs_odd
+        tabs[0::] = tabs_odd
+        tabs[1::] = tabs_even
 
         # -- collect all fights
 
