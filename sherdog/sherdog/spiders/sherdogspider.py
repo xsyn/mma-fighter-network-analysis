@@ -1,5 +1,4 @@
-from scrapy import log
-from scrapy.selector import HtmlXPathSelector
+from scrapy import log, Selector
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from sherdog.items import FightItem, AttrItem, FighterItem
@@ -25,7 +24,7 @@ class SherdogSpider(CrawlSpider):
 
     def parse_item(self, response):
         # -- collect all table tags that has all the data
-        hxs = HtmlXPathSelector(response)
+        hxs = Selector(response)
         tabs_odd = hxs.select("//tr[@class='odd']")
         tabs_even = hxs.select("//tr[@class='even']")
         tabs = [0] * (len(tabs_odd) + len(tabs_even))
