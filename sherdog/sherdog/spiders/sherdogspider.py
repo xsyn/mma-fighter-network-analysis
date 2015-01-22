@@ -46,7 +46,7 @@ class SherdogSpider(CrawlSpider):
             if (tab.select(".//td/text()")[2].extract()) != "N/A":
                 FI["Time"] = sum(int(x) * 60 **k for k, x in enumerate(reversed(tab.select(".//td/text()")[2].extract().split(":"))))
             else:
-                FI["Time"]
+                FI["Time"] = 0
             Fights["Fight" + str(i)] = dict(FI)
             i += 1
 
@@ -57,11 +57,12 @@ class SherdogSpider(CrawlSpider):
         if bio.select(".//span[@itemprop='birthDate']/text()")[0].extract() != "N/A":
             AI["Birthday"] = dt.datetime.strptime(bio.select(".//span[@itemprop='birthDate']/text()")[0].extract(), "%Y-%m-%d")
         else:
-             AI["Birthday"] == "Unknown"
+             AI["Birthday"] = "Unknown"
         AI["Weight"] = int(bio.select(".//span[@class='item weight']//strong/text()").extract()[0].split()[0])
         AI["Height"] = sum(int(x) * 12 ** k for k, x in enumerate(reversed(bio.select(".//span[@class='item height']/strong/text()").extract()[0].split("\"")[0].split("\'"))))
         AI["Class"] = bio.select(".//strong[@class='title']/text()").extract()[0]
-        AI["Country"] = bio.select(".//strong[@itemprop='nationality']/text()").extract()[0]
+        if bio.select(".//strong[@itemprop='nationality']/text()").extract():
+            AI["Country"] = bio.select(".//strong[@itemprop='nationality']/text()").extract()[0]
 
         # -- a nested dict
         Fighter = FighterItem()
