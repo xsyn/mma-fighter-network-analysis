@@ -18,7 +18,7 @@ class SherdogSpider(CrawlSpider):
             return value
 
     rules = (
-    Rule(SgmlLinkExtractor(allow = (r'/fighter/[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+', ),process_value = my_process_value ),
+    Rule(SgmlLinkExtractor(allow = (r'/fighter/[a-zA-Z]+\-[a-zA-Z]+\-[0-9]+', ),process_value = my_process_value, unique = True ),
          callback = "parse_item", follow = True),
          )
 
